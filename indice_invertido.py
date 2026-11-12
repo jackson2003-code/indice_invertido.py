@@ -64,7 +64,7 @@ meu_indice = criar_indice(historia)
 alvo = "justina e capitu"
 
 inicio_rapido = time.perf_counter()
-for  in range(1000):
+for _ in range(1000):
     pesquisar_palavra(meu_indice, alvo)
 fim_rapido = time.perf_counter()
 tempo_com_indice = fim_rapido - inicio_rapido
