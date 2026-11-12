@@ -1,7 +1,6 @@
 # indice_invertido.py
 MINI-PROJETO HASTING FEITOS PELOS ALUNOS JACKSON VICTOR E SUZANY VALESKA
 
-INSTRUÇÕES PARA EXECUTAR O PROGRAMA:
 ## Como rodar o código
 
 1. **Baixe os arquivos:** Faça o download do código (`indice_invertido.py`) e do texto do livro (`dom_casmurro.txt`) aqui do repositório.
