@@ -61,7 +61,7 @@ with open("dom_casmurro.txt", "r", encoding="utf-8") as arquivo:
     historia = arquivo.read()
 
 meu_indice = criar_indice(historia)
-alvo = "observar e capitu"
+alvo = "justina e capitu"
 
 inicio_rapido = time.perf_counter()
 for _ in range(1000):
