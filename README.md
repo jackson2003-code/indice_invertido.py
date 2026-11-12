@@ -40,9 +40,9 @@ Testamos buscas pela expressão `"justina e capitu"` no livro *Dom Casmurro* (me
    **$O(1)$** (tempo constante) no caso médio, já que o dicionário usa uma tabela hash por baixo dos panos.
 
 5. **Qual é a complexidade da construção do índice e das operações de união e interseção?**
-   * **Construção do índice:** $O(n)$, pois passa uma vez por todas as palavras do texto.
-   * **União:** $O(a + b)$, somando o tamanho dos dois conjuntos juntados.
-   * **Interseção:** $O(\min(a, b))$, pois basta percorrer o menor conjunto e checar o que existe no maior.
+   * **Construção do índice: pois passa uma vez por todas as palavras do texto.
+   * **União: somando o tamanho dos dois conjuntos juntados.
+   * **Interseção: pois basta percorrer o menor conjunto e checar o que existe no maior.
 
 6. **Qual é a principal desvantagem da indexação em relação ao consumo de memória?**
    Gasta mais **memória RAM**, pois precisa guardar todas as palavras únicas do livro e todas as suas linhas na memória durante a execução.
