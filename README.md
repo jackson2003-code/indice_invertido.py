@@ -7,9 +7,6 @@ MINI-PROJETO HASTING FEITOS PELOS ALUNOS JACKSON VICTOR E SUZANY VALESKA
 2. **Deixe tudo junto:** Coloque os dois arquivos dentro da mesma pasta no seu computador.
 3. **Execute o script:** Abra essa pasta no VS Code ou no terminal do seu computador e rode o comando:
 
-
-python indice_invertido.py
-
 ## Relatório do Experimento
 
 ### Experimento 2 — Vantagem da Indexação
