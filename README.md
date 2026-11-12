@@ -14,38 +14,35 @@ python indice_invertido.py
 
 ### Experimento 2 — Vantagem da Indexação
 
-Para testar na prática se vale a pena gastar um tempo inicial montando o índice antes de começar a pesquisar, fizemos várias buscas pela palavra `"capitu"` no livro *Dom Casmurro* (Machado de Assis). Cada teste foi rodado 3 vezes e pegamos o valor do meio (mediana) em milissegundos (`ms`):
+Testamos buscas pela expressão `"justina e capitu"` no livro *Dom Casmurro* (mediana de 3 execuções em milissegundos):
 
-| Quantidade de consultas | Varredura completa (ms) | Construção do índice + consultas (ms) |
-| :--- | :---: | :---: |
-| **1** | 38.13 | 58.88 |
-| **10** | 379.41 | 57.62 |
-| **100** | 3316.87 | 53.89 |
-| **1.000** | 32268.15 | 54.09 |
+| Consultas | Varredura completa (ms) | Construção + consultas (ms) |
+| :---:      | :---:                   | :---: |
+| **1**       | 34.87                   | 56.40 |
+| **10**      | 327.45                       | 56.63 |
+| **100**      | 3183.77                 | 55.02 |
+| **1.000**    | 31910.68                | 58.44 |
 
 ---
 
 ### Análise dos Resultados
 
-**1. Qual estratégia foi mais rápida? Em quais situações?**
-* Se a ideia for fazer **apenas 1 busca isolada**, a **varredura completa** ganha (`38.13 ms` contra `58.88 ms`), porque ela lê o livro uma vez e pronto, sem precisar montar nenhuma estrutura antes.
-* Porém, quando fazemos **várias buscas seguidas** (`10`, `100` ou `1.000`), o **índice invertido** vence de lavada. Enquanto a varredura vai acumulando tempo a cada nova pesquisa (passando de 32 segundos em 1.000 buscas), o índice fica praticamente parado na casa dos `54 ms` a `58 ms`. Isso acontece porque quase todo esse tempo vai só para criar o índice na primeira vez; depois disso, as buscas saem praticamente de graça.
+1. **Qual estratégia foi mais rápida? Em quais situações?**
+   Para **1 busca única**, a **varredura** foi mais rápida (`34.87 ms` vs `56.40 ms`), pois lê o texto uma vez sem montar o índice antes. Para **várias buscas** (`10` ou mais), o **índice invertido** vence de longe, mantendo o tempo quase constante (~56 ms) enquanto a varredura passa de 31 segundos.
 
-**2. A partir de aproximadamente quantas consultas a indexação passou a ser vantajosa?**
-Logo na **2ª consulta**. Como cada varredura completa leva cerca de `38 ms` (duas buscas já dão uns `76 ms`) e montar o índice + buscar leva por volta de `54 ms` a `58 ms`, na segunda pesquisa o esforço inicial já se paga.
+2. **A partir de aproximadamente quantas consultas a indexação passou a ser vantajosa?**
+   A partir de **2 consultas**, pois duas varreduras (~69 ms) já custam mais caro do que montar o índice e buscar (~56 ms).
 
-**3. Qual é a vantagem de utilizar conjuntos (`set`) em vez de listas (`list`) para armazenar as linhas?**
-Tem duas vantagens bem claras no dia a dia do código:
-* **Não repete linhas:** Se a palavra `"capitu"` aparecer duas vezes na mesma linha, o `set` guarda o número daquela linha só uma vez automaticamente, sem a gente precisar ficar checando se já estava lá.
-* **Cruzar buscas fica muito mais rápido:** Quando queremos achar linhas que tenham *palavra A* **E** *palavra B* (ou *A* **OU** *B*), juntar ou cruzar conjuntos no Python é bem mais rápido do que ficar comparando duas listas item por item.
+3. **Qual é a vantagem de utilizar conjuntos (`set`) em vez de listas (`list`) para armazenar as linhas?**
+   O `set` evita números de linha repetidos automaticamente e torna operações de interseção (`E`, como na busca `"justina e capitu"`) e união (`OU`) muito mais rápidas do que comparar listas.
 
-**4. Qual é a complexidade esperada da busca de uma chave em um dicionário Python?**
-No caso médio, é **$O(1)$** (tempo constante). Como o dicionário (`dict`) do Python funciona como uma **tabela hash**, ele calcula direto onde a palavra está guardada na memória, sem precisar sair procurando de um em um (só no pior caso teórico de muitas colisões é que iria para $O(n)$, mas na prática fica em $O(1)$).
+4. **Qual é a complexidade esperada da busca de uma chave em um dicionário Python?**
+   **$O(1)$** (tempo constante) no caso médio, já que o dicionário usa uma tabela hash por baixo dos panos.
 
-**5. Qual é a complexidade da construção do índice e das operações de união e interseção?**
-* **Construção do índice:** **$O(N)$**, onde $N$ é o total de palavras do texto, já que precisamos passar pelo livro inteiro uma única vez e ir guardando cada palavra no dicionário em tempo médio $O(1)$.
-* **União ($A \cup B$):** **$O(|A| + |B|)$**, onde $|A|$ e $|B|$ são o tamanho dos dois conjuntos de linhas, porque precisamos juntar todos os elementos dos dois lados no resultado.
-* **Interseção ($A \cap B$):** **$O(\min(|A|, |B|))$** no caso médio, pois o Python pega o menor conjunto e apenas checa em tempo $O(1)$ quais daquelas linhas também aparecem no conjunto maior.
+5. **Qual é a complexidade da construção do índice e das operações de união e interseção?**
+   * **Construção do índice:** $O(n)$, pois passa uma vez por todas as palavras do texto.
+   * **União:** $O(a + b)$, somando o tamanho dos dois conjuntos juntados.
+   * **Interseção:** $O(\min(a, b))$, pois basta percorrer o menor conjunto e checar o que existe no maior.
 
-**6. Qual é a principal desvantagem da indexação em relação ao consumo de memória?**
-Ela **gasta bem mais memória RAM**. Enquanto a varredura lê o texto sem precisar guardar quase nada extra, o índice invertido precisa manter na memória todas as palavras diferentes do livro junto com todas as linhas em que elas aparecem. Se fossem milhares de livros gigantes, o índice poderia ocupar tanto ou até mais espaço na memória do que os próprios textos.
+6. **Qual é a principal desvantagem da indexação em relação ao consumo de memória?**
+   Gasta mais **memória RAM**, pois precisa guardar todas as palavras únicas do livro e todas as suas linhas na memória durante a execução.
