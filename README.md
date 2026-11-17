@@ -65,5 +65,5 @@ Durante o trabalho, usei a IA para tirar dúvidas, resolver uns erros que deram 
 
 * **4. Revisando a teoria e organizando o GitHub**
   * **O que perguntei:** Qual era a complexidade (Big-O) das buscas no dicionário e das operações de união e interseção dos conjuntos, além de como arrumar a formatação do `README.md`.
-  * **O que a IA explicou:** Explicou de um jeito simples por que a busca é $O(1)$ e como ficam os tempos de construção ($O(n)$), união ($O(a+b)$) e interseção ($O(\min(a,b))$), além de ajudar a tirar uns blocos de código que tinham quebrado a formatação no GitHub.
+  * **O que a IA explicou:** Explicou de um jeito simples por que a busca é $O(1)$ e como ficam os tempos de construção, união  e interseção, além de ajudar a tirar uns blocos de código que tinham quebrado a formatação no GitHub.
   * **Como conferi:** Comparei a teoria com os tempos da minha tabela (vendo na prática que o índice não fica lento mesmo com 1.000 buscas) e conferi como ficou a página final no GitHub.
